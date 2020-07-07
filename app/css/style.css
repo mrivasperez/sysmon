@@ -69,7 +69,7 @@ nav ul {
 }
 
 nav ul li {
-  background-color: rgba(219, 217, 217, 0.342);
+  background-color: rgba(219, 217, 217, 0.3);
   color: #000000;
   cursor: pointer;
   flex: 1;
@@ -77,12 +77,16 @@ nav ul li {
   text-align: center;
   text-transform: uppercase;
   font-weight: bold;
+  transition: all 0.2s ease-in-out;
 }
 
-h1,
-nav ul li:hover,
+nav ul li:hover {
+  color: blue;
+}
+
 nav ul li.active {
-  color: ;
+  background-color: #8181814d;
+  color: rgb(1, 1, 136);
 }
 
 nav ul li p {
