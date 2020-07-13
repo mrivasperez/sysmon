@@ -11,7 +11,7 @@ let mainWindow;
 
 function createMainWindow() {
   mainWindow = new BrowserWindow({
-    title: "APP NAME",
+    title: "Sysmon",
     width: isDev ? 800 : 355,
     height: 500,
     icon: "./assets/icons/icon.png",

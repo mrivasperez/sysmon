@@ -4,6 +4,8 @@ const path = require("path"),
   mem = osu.mem,
   os = osu.os;
 
+let cpuOverload = 80;
+
 // Change Darwin to macS in System Info
 const getOSInfo = () => {
   if (os.type() == "Darwin") {
@@ -28,6 +30,13 @@ setInterval(() => {
   // CPU Usage
   cpu.usage().then((info) => {
     document.getElementById("cpu-usage").innerText = `${info}%`;
+    document.getElementById("cpu-progress").style.width = `${info}%`;
+    // make progress bar red if overloaded
+    if (info >= cpuOverload) {
+      document.getElementById("cpu-progress").style.background = "red";
+    } else {
+      document.getElementById("cpu-progress").style.background = "black";
+    }
   });
   // CPU Free
   cpu.free().then((info) => {
