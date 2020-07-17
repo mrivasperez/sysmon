@@ -6,6 +6,11 @@ const path = require("path"),
 
 let cpuOverload = 80;
 
+// send notification to user
+const notifyUser = (options) => {
+  new Notification(options.title, options);
+};
+
 // Change Darwin to macS in System Info
 const getOSInfo = () => {
   if (os.type() == "Darwin") {
@@ -25,6 +30,13 @@ const secondsToDhms = (seconds) => {
 };
 
 // *** DYNAMIC SYSTEM STATISTICS ***
+// Notify user if x
+notifyUser({
+  title: "CPU Overload",
+  body: `CPU is over ${cpuOverload}%`,
+  icon: path.join(__dirname, "img", "icon.png"),
+});
+
 // *** Run every 2 seconds
 setInterval(() => {
   // CPU Usage
