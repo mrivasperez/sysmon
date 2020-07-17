@@ -4,11 +4,30 @@ const path = require("path"),
   mem = osu.mem,
   os = osu.os;
 
-let cpuOverload = 80;
+let cpuOverload = 2;
+let alertFrequency = 5;
 
 // send notification to user
 const notifyUser = (options) => {
   new Notification(options.title, options);
+};
+
+// check how much time has passed since last notification
+const runNotify = (frequency) => {
+  if (localStorage.getItem("lastNotify") === null) {
+    // store timestamp
+    localStorage.setItem("lastNotify", +new Date());
+    return true;
+  }
+  const notifyTime = new Date(parseInt(localStorage.getItem("lastNotify")));
+  const now = new Date();
+  const diffTime = Math.abs(now - notifyTime);
+  const minutesPassed = Math.ceil(diffTime / (1000 * 60));
+  if (minutesPassed > frequency) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 // Change Darwin to macS in System Info
@@ -30,12 +49,6 @@ const secondsToDhms = (seconds) => {
 };
 
 // *** DYNAMIC SYSTEM STATISTICS ***
-// Notify user if x
-notifyUser({
-  title: "CPU Overload",
-  body: `CPU is over ${cpuOverload}%`,
-  icon: path.join(__dirname, "img", "icon.png"),
-});
 
 // *** Run every 2 seconds
 setInterval(() => {
@@ -48,6 +61,18 @@ setInterval(() => {
       document.getElementById("cpu-progress").style.background = "red";
     } else {
       document.getElementById("cpu-progress").style.background = "black";
+    }
+
+    // Check overload
+    if (info >= cpuOverload && runNotify(alertFrequency)) {
+      // Notify user if x
+      notifyUser({
+        title: "CPU Overload",
+        body: `CPU is over ${cpuOverload}%`,
+        icon: path.join(__dirname, "img", "icon.png"),
+      });
+      // save last time stamp in localstorage
+      localStorage.setItem("lastNotify", +new Date());
     }
   });
   // CPU Free
