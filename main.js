@@ -1,5 +1,6 @@
-const { app, BrowserWindow, Menu } = require("electron");
-const log = require("electron-log");
+const { app, BrowserWindow, Menu } = require("electron"),
+  log = require("electron-log"),
+  store = require(store);
 
 // Set env
 process.env.NODE_ENV = "development";
