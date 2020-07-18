@@ -10,6 +10,18 @@ const isMac = process.platform === "darwin" ? true : false;
 
 let mainWindow;
 
+// init store and app defaults
+
+const store = new Store({
+  configName: "user-settings",
+  defaults: {
+    settings: {
+      cpuOverload: 80,
+      alertFrequency: 5,
+    },
+  },
+});
+
 function createMainWindow() {
   mainWindow = new BrowserWindow({
     title: "Sysmon",
