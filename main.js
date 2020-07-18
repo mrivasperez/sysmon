@@ -1,7 +1,6 @@
 const { app, BrowserWindow, Menu } = require("electron"),
-  log = require("electron-log"),
-  store = require(store);
-
+  log = require("electron-log");
+const Store = require("./Store");
 // Set env
 process.env.NODE_ENV = "development";
 
@@ -43,6 +42,11 @@ function createMainWindow() {
 
 app.on("ready", () => {
   createMainWindow();
+
+  // Get settings from store when the dom is ready
+  mainWindow.webContents.on("dom-ready", () => {
+    mainWindow.webContents.send("settings:get", store.get("settings"));
+  });
 
   const mainMenu = Menu.buildFromTemplate(menu);
   Menu.setApplicationMenu(mainMenu);

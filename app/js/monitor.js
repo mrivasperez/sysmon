@@ -4,7 +4,7 @@ const path = require("path"),
   mem = osu.mem,
   os = osu.os;
 
-let cpuOverload = 2;
+let cpuOverload = 80;
 let alertFrequency = 5;
 
 // send notification to user
