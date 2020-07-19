@@ -1,8 +1,8 @@
-const { app, BrowserWindow, Menu, ipcMain, Tray } = require("electron"),
+const { app, Menu, ipcMain, Tray } = require("electron"),
   log = require("electron-log"),
   path = require("path"),
-  Store = require("./Store"),
-  MainWindow = require("./MainWindow");
+  Store = require("./app/utils/Store"),
+  MainWindow = require("./app/utils/MainWindow");
 // Set env
 process.env.NODE_ENV = "development";
 
