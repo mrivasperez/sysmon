@@ -1,7 +1,8 @@
 const { app, BrowserWindow, Menu, ipcMain, Tray } = require("electron"),
   log = require("electron-log"),
   path = require("path"),
-  Store = require("./Store");
+  Store = require("./Store"),
+  MainWindow = require("./MainWindow");
 // Set env
 process.env.NODE_ENV = "development";
 
@@ -24,24 +25,7 @@ const store = new Store({
 });
 
 function createMainWindow() {
-  mainWindow = new BrowserWindow({
-    title: "Sysmon",
-    width: isDev ? 800 : 355,
-    height: 500,
-    icon: "./assets/icons/icon.png",
-    show: false,
-    opacity: 0.9,
-    resizable: isDev ? true : false,
-    webPreferences: {
-      nodeIntegration: true,
-    },
-  });
-
-  if (isDev) {
-    mainWindow.webContents.openDevTools();
-  }
-
-  mainWindow.loadFile("./app/index.html");
+  mainWindow = new MainWindow("./app/index.html", isDev);
 }
 
 app.on("ready", () => {
