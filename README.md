@@ -1,8 +1,8 @@
 # Sysmon
 
-![screenshot](assets/img/screenshot.png)
+![A screenshot of the most useful, minimal cpu monitor ever.](assets/img/screenshot.png)
 
-> The most useful, minimal cpu monitor ever.
+> A screenshot of the most useful, minimal cpu monitor ever.
 
 ## Getting Started
 
