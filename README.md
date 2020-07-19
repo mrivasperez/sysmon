@@ -1,4 +1,4 @@
-# Sysmon
+# Sysmon | A minimal system monitor.
 
 ![A screenshot of the most useful, minimal cpu monitor ever.](assets/img/screenshot.png)
 
