@@ -67,10 +67,42 @@
 		<script>
 			// ICP rendered
 			const { ipcRenderer } = require('electron')
+			const settingsForm = document.getElementById('settings-form')
+
+			// Show alert for saving settigns
+			const showAlert = msg => {
+				let alert = document.getElementById('alert');
+				alert.classList.remove('hide');
+				alert.classList.add('alert');
+				alert.innerText = msg;
+
+				// hide alert after three seconds
+				setTimeout(()=> {
+					alert.classList.add('hide');
+				}, 3000);
+			}
+
+			// Get the default or user settings
 			ipcRenderer.on('settings:get', (e, settings) => {
-				document.getElementById('cpu-overload').value = settings.cpuOverload
-				document.getElementById('alert-frequency').value = settings.alertFrequency
+				document.getElementById('cpu-overload').value = settings.cpuOverload;
+				document.getElementById('alert-frequency').value = settings.alertFrequency;
 			})
+
+			// submit settings
+			settingsForm.addEventListener('submit', e => {
+				e.preventDefault();
+				const cpuOverload = document.getElementById('cpu-overload').value;
+				const alertFrequency = document.getElementById('alert-frequency').value;
+
+				// Send the new settings to the main process
+				ipcRenderer.send('settings:set', {
+					cpuOverload,
+					alertFrequency
+				})
+				showAlert('Saved!');
+			})
+			
+			
 		</script>
 	</body>
 </html>

@@ -113,8 +113,9 @@ nav ul li p {
 .alert {
   text-align: center;
   padding: 5px;
-  color: orange;
-  border: orange 1px solid;
+  color: white;
+  border: green 2px solid;
+  background-color: rgba(0, 0, 0, 0.541);
 }
 
 .form-control {
