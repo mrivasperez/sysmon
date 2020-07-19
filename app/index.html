@@ -66,7 +66,8 @@
 		<script src="js/monitor.js"></script>
 		<script>
 			// ICP rendered
-			const settingsForm = document.getElementById('settings-form')
+			const settingsForm = document.getElementById('settings-form'),
+			nav = document.getElementById('nav')
 
 			// Show alert for saving settigns
 			const showAlert = msg => {
@@ -100,7 +101,10 @@
 				})
 				showAlert('Saved!');
 			})
-			
+			// Toggle navigation
+			ipcRenderer.on('nav:toggle', () => {
+				nav.classList.toggle('hide')
+			})
 			
 		</script>
 	</body>
