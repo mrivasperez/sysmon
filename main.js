@@ -1,6 +1,7 @@
-const { app, BrowserWindow, Menu, ipcMain } = require("electron"),
-  log = require("electron-log");
-const Store = require("./Store");
+const { app, BrowserWindow, Menu, ipcMain, Tray } = require("electron"),
+  log = require("electron-log"),
+  path = require("path"),
+  Store = require("./Store");
 // Set env
 process.env.NODE_ENV = "development";
 
@@ -8,6 +9,7 @@ const isDev = process.env.NODE_ENV !== "production" ? true : false;
 const isMac = process.platform === "darwin" ? true : false;
 
 let mainWindow;
+let tray;
 
 // init store and app defaults
 
@@ -50,6 +52,12 @@ app.on("ready", () => {
 
   const mainMenu = Menu.buildFromTemplate(menu);
   Menu.setApplicationMenu(mainMenu);
+
+  const icon = path.join(__dirname, "assets", "icons", "tray_icon.png");
+
+  tray = new Tray(icon);
+
+  mainWindow.on("ready", () => (mainWindow = null));
 });
 
 const menu = [
