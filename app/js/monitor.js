@@ -2,10 +2,17 @@ const path = require("path"),
   osu = require("node-os-utils"),
   cpu = osu.cpu,
   mem = osu.mem,
-  os = osu.os;
+  os = osu.os,
+  { ipcRenderer } = require("electron");
 
-let cpuOverload = 80;
-let alertFrequency = 5;
+let cpuOverload;
+let alertFrequency;
+
+// Get settings & values
+ipcRenderer.on("settings:get", (e, settings) => {
+  cpuOverload = +settings.cpuOverload;
+  alertFrequency = +settings.alertFrequency;
+});
 
 // send notification to user
 const notifyUser = (options) => {
